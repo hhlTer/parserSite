@@ -1,4 +1,4 @@
-package com.webdev.siteparser.servise.parse.ui;
+package com.webdev.siteparser.servise.cli;
 
 import org.springframework.stereotype.Service;
 

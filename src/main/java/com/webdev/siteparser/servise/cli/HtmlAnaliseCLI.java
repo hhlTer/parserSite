@@ -1,5 +1,6 @@
-package com.webdev.siteparser.servise.parse.ui;
+package com.webdev.siteparser.servise.cli;
 
+import com.webdev.siteparser.servise.convert.LanguageConvertNameService;
 import com.webdev.siteparser.servise.parse.HtmlLoadService;
 import com.webdev.siteparser.servise.parse.MetaTagService;
 import com.webdev.siteparser.servise.parse.stats.ContentLengthService;
@@ -41,6 +42,9 @@ public class HtmlAnaliseCLI {
     @Qualifier("sourceLanguageDetectorService")
     @Autowired
     private LanguageDetectorService languageDetectorService;
+
+    @Autowired
+    private LanguageConvertNameService languageConvertNameService;
 
     Map<String, CLICommandHandler> cliCommandHandlerMap;
 
@@ -100,9 +104,9 @@ public class HtmlAnaliseCLI {
         System.out.println("header tags: " + paraCount);
 
         String lang = handlerLanguageDetectorService.detectLanguage(html);
-        System.out.println("language = " + lang);
+        System.out.println("language handler = " + lang);
 
-        String langSource = languageDetectorService.detectLanguage(html);
-        System.out.println("language from service = " + langSource);
+        String langSource = languageDetectorService.detectLanguage(document.text());
+        System.out.println("language from service = " + languageConvertNameService.convertName(langSource));
     }
 }
