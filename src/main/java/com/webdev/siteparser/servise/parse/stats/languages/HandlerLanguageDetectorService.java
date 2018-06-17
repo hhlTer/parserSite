@@ -1,4 +1,4 @@
-package com.webdev.siteparser.servise.parse.stats;
+package com.webdev.siteparser.servise.parse.stats.languages;
 
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
@@ -8,10 +8,10 @@ import java.util.Map;
 
 @Service
 
-public class LanguageDetectorService {
+public class HandlerLanguageDetectorService {
     private static Map<String, String> mapLanguageSpecificChars;
 
-    public LanguageDetectorService(){
+    public HandlerLanguageDetectorService(){
         mapLanguageSpecificChars = new HashMap<>();
         mapLanguageSpecificChars.put("ua", "іїґє");
         mapLanguageSpecificChars.put("ru", "ёъыь");
