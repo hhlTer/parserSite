@@ -53,6 +53,7 @@ public class HtmlAnaliseCLI {
         cliCommandHandlerMap.put("exit", context.getBean(ExitCLICommandHandler.class));
         cliCommandHandlerMap.put("help", context.getBean(HelpCLICommandHandler.class));
     }
+
     public void run(){
         System.out.println("Starting CLI......");
         System.out.println("enter URL amd press enter");

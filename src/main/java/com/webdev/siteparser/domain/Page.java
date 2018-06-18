@@ -75,4 +75,16 @@ public class Page {
         result = 31*result + (url != null ? url.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", content='" + content + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", project=" + project +
+                '}';
+    }
 }
