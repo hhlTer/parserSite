@@ -25,10 +25,10 @@
 	</properties>
 
 	<dependencies>
-		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 		<!--<dependency>-->
 			<!--<groupId>org.springframework.boot</groupId>-->
 			<!--<artifactId>spring-boot-starter-security</artifactId>-->
@@ -41,20 +41,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.googlecode/google-api-translate-java -->
-		<!--<dependency>-->
-			<!--<groupId>com.googlecode</groupId>-->
-			<!--<artifactId>google-api-translate-java</artifactId>-->
-			<!--<version>0.92</version>-->
-		<!--</dependency>-->
-
-		<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-translate -->
-		<!--<dependency>-->
-			<!--<groupId>com.google.cloud</groupId>-->
-			<!--<artifactId>google-cloud-translate</artifactId>-->
-			<!--<version>1.34.0</version>-->
-		<!--</dependency>-->
 
 		<dependency>
 			<groupId>com.detectlanguage</groupId>
@@ -74,11 +60,18 @@
 			<version>1.9.1</version>
 		</dependency>
 
+		<!-- MySql 5.5 Connector -->
 		<!--<dependency>-->
 			<!--<groupId>mysql</groupId>-->
 			<!--<artifactId>mysql-connector-java</artifactId>-->
-			<!--<scope>runtime</scope>-->
+			<!--<version>5.1.15-bin</version>-->
 		<!--</dependency>-->
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
