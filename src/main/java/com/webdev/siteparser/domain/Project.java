@@ -15,15 +15,22 @@ public class Project {
     @Column(name = "domain")
     private String domain;
 
+    @Column(name = "parsingEnabled")
+    private boolean parsingEnabled;
 
     //delete all pages if delete project(EAGER)
     @OneToMany(mappedBy = "project", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Page> pages = new HashSet<>();
 
+
+
     public void setPages(Set<Page> pages) {
         this.pages = pages;
     }
 
+    public void setParsingEnabled(boolean parsingEnabled) {
+        this.parsingEnabled = parsingEnabled;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -37,6 +44,8 @@ public class Project {
 
         return pages;
     }
+
+    public boolean getParseEnabled(){ return parsingEnabled; }
 
     public String getDomain() {
 

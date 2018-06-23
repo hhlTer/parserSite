@@ -20,4 +20,7 @@ public interface PageRepository extends JpaRepository<Page, Long> {
 
     @Query(nativeQuery = true, value = "select * FROM page WHERE project_id = :projectId")
     List<Page> getPagesByProjectId(@Param("projectId") long projectId);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM page WHERE project_id = :projectId AND content is NULL")
+    List<Page> getUnparsedPagesByProjectId(@Param("projectId") long projectId);
 }

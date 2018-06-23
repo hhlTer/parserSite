@@ -23,7 +23,7 @@ public class Page {
     private String description;
 
     @JoinColumn(name = "project_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Project project;
 
     public String getUrl() {
@@ -42,6 +42,14 @@ public class Page {
         return description;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     public void setUrl(String url) {
         this.url = url;
     }
@@ -57,6 +65,7 @@ public class Page {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     @Override
     public boolean equals(Object o) {
