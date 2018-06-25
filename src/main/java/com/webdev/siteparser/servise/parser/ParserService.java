@@ -6,9 +6,10 @@ import com.webdev.siteparser.servise.jpa.PageService;
 import com.webdev.siteparser.servise.jpa.ProjectService;
 import com.webdev.siteparser.servise.parse.HtmlLoadService;
 import com.webdev.siteparser.servise.parse.MetaTagService;
+import com.webdev.siteparser.servise.parse.TextFilterService;
+import com.webdev.siteparser.servise.parse.stats.ExtractLinksService;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,13 @@ public class ParserService {
     @Autowired
     private MetaTagService metaTagService;
 
-    @Scheduled(fixedDelay = 10000)
+    @Autowired
+    private ExtractLinksService extractLinksService;
+
+    @Autowired
+    private TextFilterService textFilterService;
+
+    @Scheduled(fixedDelay = 2000)
     public void parse(){
         System.out.println("test delay");
         List<Project> projectList = projectService.getProjectWithEnabledParsing();
@@ -37,7 +44,7 @@ public class ParserService {
         System.out.println(projectList.size());
         for (Project project:
              projectList) {
-            if (pageService.hasProjectUnparsedPages(project)) {
+            if (pageService.hasProjectUnparsedPages(project)) { //if exist project with enabled parsing
                 System.out.println("inside foreach");
                 parseProject(project);
             }
@@ -45,18 +52,24 @@ public class ParserService {
     }
 
     private void parseProject(Project project){
-        List<Page> pageToParce = pageService.getProjectUnparsedPages(project);
-        Page firstPage = pageToParce.get(0);
-        parsePage(firstPage);
+        List<Page> pageToParse = pageService.getProjectUnparsedPages(project); //set all page, where content == null
+        if (pageToParse.size() > 0) {
+            Page firstPage = pageToParse.get(0);
+            parsePage(firstPage); //parse first page
+        }
     }
 
     private void parsePage(Page page){
         String url = page.getUrl();
 
-        Document document = htmlLoadService.getDocument(url);
+        Document document = htmlLoadService.getDocument(url); //get document from page, where content == null
         String content = document.body().text();
         String title = metaTagService.parceTitle(document);
         String description = metaTagService.parceDescription(document);
+
+        content = textFilterService.cleanText(content);
+        title = textFilterService.cleanText(title);
+        description = textFilterService.cleanText(description);
 
         page.setContent(content);
         page.setDescription(description);
@@ -65,6 +78,14 @@ public class ParserService {
 
         pageService.save(page);
 
+        List<String> linksList = extractLinksService.linkList(page.getProject(), document);
+        for (String s:
+             linksList) {
+            Page page1 = new Page();
+            page1.setProject(page.getProject());
+            page1.setUrl(s);
+            pageService.save(page1);
+        }
     }
 
 }

@@ -78,6 +78,7 @@ public class Page {
         return url != null ? url.equals(page.url) : page.url.equals(null);
     }
 
+
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));

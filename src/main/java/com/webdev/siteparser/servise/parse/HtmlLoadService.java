@@ -16,6 +16,7 @@ public class HtmlLoadService {
     public Document getDocument(String url){
         Document document = null;
         try {
+            System.out.println("from HtmlLoadService, detDocument(url), url: " + url);
             document = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();

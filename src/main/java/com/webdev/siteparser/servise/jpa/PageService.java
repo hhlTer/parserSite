@@ -25,15 +25,24 @@ public class PageService {
         String url = page.getUrl();
 
         Page page1 = pageRepository.getPagesByProjectId(projectId, url);
-//        System.out.println(page.getContent());
-        if (page1 == null)
-        if ((page1.getContent() == null) || (page1 == null)){
+        System.out.println(page.getDescription());
+
+        if (isSaves(page, page1)){
             pageRepository.save(page);
         } else {
             System.out.println("page already exist");
         }
+
+
+//        if ((page1 == null) || (page1.getContent() == null)){
+//            if (page.getContent() == null && page.getTitle() == null && page.getDescription() == null);
+//            pageRepository.save(page);
+//        } else {
+//            System.out.println("page already exist");
+//        }
         return page;
     }
+
     public Page getById(long id){
         return pageRepository.findById(id).get();
     }
@@ -55,15 +64,26 @@ public class PageService {
             return false;
         }
 
-        List<Page> pages = pageRepository.getUnparsedPagesByProjectId(1);
         if (pageRepository.getUnparsedPagesByProjectId(project.getId()).size() == 0){
             return false;
         }
 
-        System.out.println("mathafaka");
         return true;
     }
     public List<Page> getProjectUnparsedPages(Project project){
         return pageRepository.getUnparsedPagesByProjectId(project.getId());
+    }
+
+    private boolean isSaves(Page newPage, Page oldPage){
+        if (oldPage == null) {
+            return true;
+        } else {
+            if ((oldPage.getDescription() == null & newPage.getDescription() != null)||
+                (oldPage.getContent() == null & newPage.getContent() != null)||
+                (oldPage.getTitle() == null & newPage.getTitle() != null)){
+                return true;
+            }
+        }
+        return false;
     }
 }
