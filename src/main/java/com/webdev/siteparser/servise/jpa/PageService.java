@@ -49,7 +49,7 @@ public class PageService {
     public List<Page> getAll(){
         return pageRepository.findAll();
     }
-
+    public void clear(){pageRepository.deleteAll();}
     //additional
     public Page getPageByUrlByProjectId(String url, long prId){
         return pageRepository.getPagesByProjectId(prId, url);

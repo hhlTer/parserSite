@@ -43,8 +43,12 @@ public class ProjectService {
         projectRepository.delete(p);
     }
 
+    public void clear(){ projectRepository.deleteAll();}
+
     public List<Project> getProjectWithEnabledParsing(){
         return projectRepository.getProjectWithParsingEnabled();
     }
+
+
 
 }

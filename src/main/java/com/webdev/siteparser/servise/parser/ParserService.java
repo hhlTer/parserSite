@@ -7,6 +7,7 @@ import com.webdev.siteparser.servise.jpa.ProjectService;
 import com.webdev.siteparser.servise.parse.HtmlLoadService;
 import com.webdev.siteparser.servise.parse.MetaTagService;
 import com.webdev.siteparser.servise.parse.TextFilterService;
+import com.webdev.siteparser.servise.parse.UrlService;
 import com.webdev.siteparser.servise.parse.stats.ExtractLinksService;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class ParserService {
     @Autowired
     private TextFilterService textFilterService;
 
+    @Autowired
+    private UrlService urlService;
+
     @Scheduled(fixedDelay = 2000)
     public void parse(){
         System.out.println("test delay");
@@ -60,7 +64,7 @@ public class ParserService {
     }
 
     private void parsePage(Page page){
-        String url = page.getUrl();
+        String url = urlService.normalizeUrl(page.getUrl());
 
         Document document = htmlLoadService.getDocument(url); //get document from page, where content == null
         String content = document.body().text();

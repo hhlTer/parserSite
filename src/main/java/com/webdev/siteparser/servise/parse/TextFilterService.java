@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class TextFilterService {
     public String cleanText(String text){
+        if (null == text){
+            return null;
+        }
         StringBuilder result = new StringBuilder();
 
         for (char c:

@@ -57,6 +57,20 @@ public class AppReadyListener {
 //        pageService.save(page2);
 
 
+        pageService.clear();
+        projectService.clear();
+
+        Project project = new Project();
+        project.setDomain("https://habr.com");
+        project.setParsingEnabled(true);
+
+        Page page = new Page();
+        page.setUrl("https://habr.com");
+        page.setProject(project);
+
+        projectService.save(project);
+        pageService.save(page);
+
         if (null != launchMode && launchMode.equals("cli")){
             cli.run();
         }
