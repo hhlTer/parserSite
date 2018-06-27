@@ -46,12 +46,13 @@ public class HtmlAnaliseCLI {
     @Autowired
     private LanguageConvertNameService languageConvertNameService;
 
-    Map<String, CLICommandHandler> cliCommandHandlerMap;
+    private Map<String, CLICommandHandler> cliCommandHandlerMap;
 
     public HtmlAnaliseCLI(ApplicationContext context){
         cliCommandHandlerMap = new HashMap<>();
         cliCommandHandlerMap.put("exit", context.getBean(ExitCLICommandHandler.class));
         cliCommandHandlerMap.put("help", context.getBean(HelpCLICommandHandler.class));
+        cliCommandHandlerMap.put("listProjects", context.getBean(ListProjectCliHandler.class));
     }
 
     public void run(){
@@ -80,10 +81,6 @@ public class HtmlAnaliseCLI {
 
     private void printPageStarts(String url){
 
-//        String url = "https://habr.com";
-//        String url = "https://ukr.net";
-//        String html = htmlLoadService.loadPage(url);
-
         System.out.println("App ready");
         //2
         String result = metaTagService.parceTitle(htmlLoadService.getDocument(url));
@@ -96,7 +93,6 @@ public class HtmlAnaliseCLI {
 
         int contentLength = contentLengthService.getContentLengthWithoutSpaces(html);
         System.out.println("Content Length: " + contentLength);
-
 
         int paragraphSize = paragraphCountService.getCountOfParagraph(html);
         System.out.println("paragraph size = " + paragraphSize);

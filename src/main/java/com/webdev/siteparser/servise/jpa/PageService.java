@@ -6,9 +6,7 @@ import com.webdev.siteparser.repository.PageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PageService {
@@ -25,13 +23,13 @@ public class PageService {
         String url = page.getUrl();
 
         Page page1 = pageRepository.getPagesByProjectId(projectId, url);
-        System.out.println(page.getDescription());
 
         if (isSaves(page, page1)){
             pageRepository.save(page);
-        } else {
-            System.out.println("page already exist");
         }
+//        else {
+//            System.out.println("page already exist");
+//        }
 
 
 //        if ((page1 == null) || (page1.getContent() == null)){
@@ -73,6 +71,62 @@ public class PageService {
     public List<Page> getProjectUnparsedPages(Project project){
         return pageRepository.getUnparsedPagesByProjectId(project.getId());
     }
+
+    /**
+     * find url, content, title, description keywords
+     * @param project - used for detect project id
+     * @param keywords - find word(s)
+     * @return Set of pages, where did find :keywords
+     */
+    public Set<Page> findUrlByKeywords(Project project, String[] keywords) {
+        Set<Page> result = new HashSet<>();
+        for (String word:
+             keywords) {
+            Set<Page> pages = pageRepository.findUrlByKeywords(project.getId(), word);
+            if (pages != null){
+                result.addAll(pages);
+            }
+        }
+        return result;
+    }
+
+    public Set<Page> findContentByKeywords(Project project, String[] keywords) {
+        Set<Page> result = new HashSet<>();
+        for (String word:
+             keywords) {
+            Set<Page> pages = pageRepository.findContentByKeywords(project.getId(), word);
+            if (pages != null){
+                result.addAll(pages);
+            }
+        }
+        return result;
+    }
+
+    public Set<Page> findTitleByKeywords(Project project, String[] keywords) {
+        Set<Page> result = new HashSet<>();
+        for (String word:
+             keywords) {
+            Set<Page> pages = pageRepository.findTitleByKeywords(project.getId(), word);
+            if (pages != null){
+                result.addAll(pages);
+            }
+        }
+        return result;
+    }
+
+    public Set<Page> findDescriptionByKeywords(Project project, String[] keywords) {
+        Set<Page> result = new HashSet<>();
+        for (String word:
+             keywords) {
+            Set<Page> pages = pageRepository.findDescriptionByKeywords(project.getId(), word);
+            if (pages != null){
+                result.addAll(pages);
+            }
+        }
+        return result;
+    }
+
+
 
     private boolean isSaves(Page newPage, Page oldPage){
         if (oldPage == null) {
