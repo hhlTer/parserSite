@@ -40,16 +40,14 @@ public class ParserService {
     @Autowired
     private UrlService urlService;
 
-//    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 5000)
     public void parse(){
-        System.out.println("test delay");
         List<Project> projectList = projectService.getProjectWithEnabledParsing();
 
         System.out.println(projectList.size());
         for (Project project:
              projectList) {
             if (pageService.hasProjectUnparsedPages(project)) { //if exist project with enabled parsing
-                System.out.println("inside foreach");
                 parseProject(project);
             }
         }

@@ -23,7 +23,7 @@ public class SearchProjectCliHandler implements CLICommandHandler {
 
     @Override
     public void handleCommand(String commandLine, HtmlAnaliseCLI cli) {
-        //commandLine = search PROJECT_ID FIELD_SEARCHING(url/title/description/content) [KEYWORDS...]
+        //commandLine = search PROJECT_ID FIELD_SEARCHING(url|title|description|content) [KEYWORDS...]
         String[] commandParts = commandLine.split(" ");
 
         String searchItem = commandParts[2];

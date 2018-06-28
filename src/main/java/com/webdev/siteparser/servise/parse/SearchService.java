@@ -30,18 +30,23 @@ public class SearchService {
             description = false;
         }
 
-        public void setParam(String param){
-            if (param.toLowerCase().equals("url")){
-                url = true;
-            }
-            if (param.toLowerCase().equals("title")){
-                title = true;
-            }
-            if (param.toLowerCase().equals("content")){
-                content = true;
-            }
-            if (param.toLowerCase().equals("description")){
-                description = true;
+        public void setParam(String params){
+            String[] items = params.split("|");
+
+            for (String param:
+                 items) {
+                if (param.toLowerCase().equals("url")) {
+                    url = true;
+                }
+                if (param.toLowerCase().equals("title")) {
+                    title = true;
+                }
+                if (param.toLowerCase().equals("content")) {
+                    content = true;
+                }
+                if (param.toLowerCase().equals("description")) {
+                    description = true;
+                }
             }
         }
     }
