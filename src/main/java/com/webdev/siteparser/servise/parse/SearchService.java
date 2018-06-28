@@ -5,12 +5,12 @@ import com.webdev.siteparser.domain.Page;
 import com.webdev.siteparser.domain.Project;
 import com.webdev.siteparser.servise.jpa.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+@Service
 public class SearchService {
 
     @Autowired
@@ -21,7 +21,29 @@ public class SearchService {
         public boolean url = true;
         public boolean title = true;
         public boolean content = true;
-        public boolean descripion = true;
+        public boolean description = true;
+
+        public void reset(){
+            url = false;
+            title = false;
+            content = false;
+            description = false;
+        }
+
+        public void setParam(String param){
+            if (param.toLowerCase().equals("url")){
+                url = true;
+            }
+            if (param.toLowerCase().equals("title")){
+                title = true;
+            }
+            if (param.toLowerCase().equals("content")){
+                content = true;
+            }
+            if (param.toLowerCase().equals("description")){
+                description = true;
+            }
+        }
     }
 
     public Set<Page> search(Project project, String...keywords){
@@ -31,16 +53,16 @@ public class SearchService {
         Set<Page> result = new HashSet<>();
 
         if (searchSpecification.url) {
-            pageService.findUrlByKeywords(project, keywords);
+            result.addAll(pageService.findUrlByKeywords(project, keywords));
         }
         if (searchSpecification.title) {
-            pageService.findTitleByKeywords(project, keywords);
+            result.addAll(pageService.findTitleByKeywords(project, keywords));
         }
-        if (searchSpecification.descripion) {
-            pageService.findDescriptionByKeywords(project, keywords);
+        if (searchSpecification.description) {
+            result.addAll(pageService.findDescriptionByKeywords(project, keywords));
         }
         if (searchSpecification.content) {
-            pageService.findContentByKeywords(project, keywords);
+            result.addAll(pageService.findContentByKeywords(project, keywords));
         }
         return result;
     }

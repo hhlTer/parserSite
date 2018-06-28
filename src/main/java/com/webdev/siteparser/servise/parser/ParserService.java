@@ -40,7 +40,7 @@ public class ParserService {
     @Autowired
     private UrlService urlService;
 
-    @Scheduled(fixedDelay = 2000)
+//    @Scheduled(fixedDelay = 5000)
     public void parse(){
         System.out.println("test delay");
         List<Project> projectList = projectService.getProjectWithEnabledParsing();

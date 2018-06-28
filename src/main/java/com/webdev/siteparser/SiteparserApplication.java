@@ -8,9 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class SiteparserApplication {
 
-
 	public static void main(String[] args) {
- 		SpringApplication.run(SiteparserApplication.class, args);
+		SpringApplication.run(SiteparserApplication.class, args);
 	}
 
 }

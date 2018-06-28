@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -53,6 +54,7 @@ public class HtmlAnaliseCLI {
         cliCommandHandlerMap.put("exit", context.getBean(ExitCLICommandHandler.class));
         cliCommandHandlerMap.put("help", context.getBean(HelpCLICommandHandler.class));
         cliCommandHandlerMap.put("listProjects", context.getBean(ListProjectCliHandler.class));
+        cliCommandHandlerMap.put("search", context.getBean(SearchProjectCliHandler.class));
     }
 
     public void run(){
@@ -71,11 +73,12 @@ public class HtmlAnaliseCLI {
         }
     }
 
-    private void handleCommand(String command){
-        if (cliCommandHandlerMap.containsKey(command)){
-            cliCommandHandlerMap.get(command).handleCommand(command, this);
+    private void handleCommand(String commandLine){
+        String[] command = commandLine.split(" ");
+        if (cliCommandHandlerMap.containsKey(command[0])){
+            cliCommandHandlerMap.get(command[0]).handleCommand(commandLine, this);
         } else {
-            System.out.println("Unknow command: <" + command + ">");
+            System.out.println("Unknow command: <" + command[0] + ">");
         }
     }
 
