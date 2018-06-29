@@ -18,6 +18,9 @@ public class ProjectService {
     @Autowired
     private PageService pageService;
 
+    public boolean exist(long projectId){
+        return projectRepository.existsById(projectId);
+    }
     public Project save(Project project){
         projectRepository.save(project);
 
