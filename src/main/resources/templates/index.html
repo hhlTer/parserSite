@@ -7,26 +7,31 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-<h1>TEST</h1>
-    <div class="w3-cars w3-gray">
+    <div class="w3-cars w3-gray w3-margin">
         <div class="w3-container w3-blue">
-            <h2>FIRST PAGE</h2>
+            <h2 th:text="'Projects: ' + ${projects.size()}">FIRST PAGE</h2>
         </div>
     <!--<p th:text="${value}">ddf</p>-->
-        <div class="w3-container">
-        <div th:each="project : ${projects}" class="w3-container">
-            <div class="w3-container">
-                <div class="w3-container w3-lightblue">
-                    <h2 th:text="${project.domain}">Project</h2>
-                </div>
-                <div class="w3-container w3-lightgray">
-                    <ul class="w3-ul">
-                        <li th:text="'Count of pages: ' + ${project.pages.size()}"></li>
-                        <li th:with="pState = ${project.getParseEnabled()} ? 'enabled' : 'disabled'" th:text="'Parsing status: ' + ${pState}"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+            <div th:each="project : ${projects}" class="w3-container">
+                <div class="w3-container w3-margin">
+                    <div class="w3-container w3-lightblue w3-margin-bottom">
+                        <h2 th:text="${project.domain}">Project</h2>
+                    </div>
+                    <div class="w3-container w3-lightgray w3-margin-bottom">
+                        <ul class="w3-ul">
+                            <li th:text="'Count of pages: ' + ${project.pages.size()}"></li>
+                            <li th:with="pState = ${project.getParseEnabled()} ? 'enabled' : 'disabled'" th:text="'Parsing status: ' + ${pState}"></li>
+                            <div class="w3-container w3-margin">
+                                <a
+                                   th:href="@{/project/changeParsingState/(projectId=${project.getId()}, parsingEnabled=${!project.getParseEnabled()})}"
+                                   th:text="${project.getParseEnabled()} ? 'Stop parsing' : 'Start parsing'"
+                                   th:attr="class='w3-button w3-right ' + ${project.getParseEnabled() ? 'w3-red' : 'w3-green'}">Start
+                                </a>
+                            </div>
+                        </ul>
+                    </div>
+                </div><!--project count + inside-->
+            </div> <!--foreach project:projects-->
+    </div> <!--main container-->
 </body>
 </html>

@@ -25,8 +25,6 @@ public class Project {
     @OneToMany(mappedBy = "project", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Page> pages = new HashSet<>();
 
-
-
     public void setPages(Set<Page> pages) {
         this.pages = pages;
     }
@@ -43,20 +41,11 @@ public class Project {
         this.domain = domain;
     }
 
-    public Set<Page> getPages() {
-
-        return pages;
-    }
+    public Set<Page> getPages() { return pages; }
 
     public boolean getParseEnabled(){ return parsingEnabled; }
 
-    public String getDomain() {
+    public String getDomain() { return domain; }
 
-        return domain;
-    }
-
-    public long getId() {
-
-        return id;
-    }
+    public long getId() { return id; }
 }
