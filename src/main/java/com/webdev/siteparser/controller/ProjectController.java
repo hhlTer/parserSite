@@ -5,7 +5,10 @@ import com.webdev.siteparser.servise.jpa.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ProjectController {
@@ -23,6 +26,27 @@ public class ProjectController {
             project.setParsingEnabled(parsingEnabled);
             projectService.save(project);
         }
+        return "redirect:/";
+    }
+
+    @GetMapping("/project/delete")
+    public String deleteProject(
+            @RequestParam(name = "projectId", required = true) long projectId
+    ){
+        if (projectService.exist(projectId)) {
+            projectService.delete(projectService.getById(projectId));
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/project/add")
+    public ModelAndView createProject(){
+        return new ModelAndView("/project/create");
+    }
+
+    @PostMapping("/project/add")
+    public String handleProjectCreate(@ModelAttribute Project project){
+        projectService.save(project);
         return "redirect:/";
     }
 

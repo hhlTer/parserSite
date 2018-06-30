@@ -7,31 +7,40 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-    <div class="w3-cars w3-gray w3-margin">
-        <div class="w3-container w3-blue">
-            <h2 th:text="'Projects: ' + ${projects.size()}">FIRST PAGE</h2>
-        </div>
+<div class="w3-cars w3-light-gray w3-margin">
+    <div class="w3-container w3-blue">
+        <h2 th:text="'Projects: ' + ${projects.size()}">FIRST PAGE</h2>
+    </div>
     <!--<p th:text="${value}">ddf</p>-->
-            <div th:each="project : ${projects}" class="w3-container">
-                <div class="w3-container w3-margin">
-                    <div class="w3-container w3-lightblue w3-margin-bottom">
-                        <h2 th:text="${project.domain}">Project</h2>
-                    </div>
-                    <div class="w3-container w3-lightgray w3-margin-bottom">
-                        <ul class="w3-ul">
-                            <li th:text="'Count of pages: ' + ${project.pages.size()}"></li>
-                            <li th:with="pState = ${project.getParseEnabled()} ? 'enabled' : 'disabled'" th:text="'Parsing status: ' + ${pState}"></li>
-                            <div class="w3-container w3-margin">
-                                <a
-                                   th:href="@{/project/changeParsingState/(projectId=${project.getId()}, parsingEnabled=${!project.getParseEnabled()})}"
-                                   th:text="${project.getParseEnabled()} ? 'Stop parsing' : 'Start parsing'"
-                                   th:attr="class='w3-button w3-right ' + ${project.getParseEnabled() ? 'w3-red' : 'w3-green'}">Start
-                                </a>
-                            </div>
-                        </ul>
-                    </div>
-                </div><!--project count + inside-->
-            </div> <!--foreach project:projects-->
-    </div> <!--main container-->
+    <div th:each="project : ${projects}" class="w3-container">
+        <!--<div class="w3-container w3-margin">-->
+            <div class="w3-container w3-section w3-gray w3-margin">
+                <ul class="w3-ul">
+                    <li th:text="'Project domain: ' + ${project.domain}"></li>
+                    <li th:text="'Count of pages: ' + ${project.pages.size()}"></li>
+                    <li th:with="pState = ${project.getParseEnabled()} ? 'enabled' : 'disabled'" th:text="'Parsing status: ' + ${pState}"></li>
+                    <div class="w3-container w3-margin">
+                        <a
+                                th:href="@{/project/changeParsingState/(projectId=${project.getId()}, parsingEnabled=${!project.getParseEnabled()})}"
+                                th:text="${project.getParseEnabled()} ? 'Stop parsing' : 'Start parsing'"
+                                th:attr="class='w3-button w3-right ' + ${project.getParseEnabled() ? 'w3-yellow' : 'w3-green'}">Start
+                        </a>
+                        <a
+                                th:href="@{project/delete/(projectId=${project.getId()})}"
+                                class="w3-button w3-left w3-red">Delete project
+                        </a>
+                    </div><!-- start/stop button -->
+                </ul>
+
+            </div><!-- project -->
+        </div><!--project count + inside-->
+    </div> <!--foreach project:projects-->
+</div> <!--main container-->
+            <div class="w3-container w3-margin">
+                        <a
+                                th:href="@{project/add}"
+                                class="w3-button w3-left w3-margin-bottom w3-blue">Create project
+                        </a>
+            </div>
 </body>
 </html>

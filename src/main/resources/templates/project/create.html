@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <div class="w3-container w3-margin">
+        <div class="w3-card">
+            <div class="w3-container w3-blue">
+                <h3>Adding a new project</h3>
+            </div><!--Title: "Adding a new project"-->
+        <form action="/project/add" method="post">
+            <div class="w3-container w3-grey w3-margin">
+                <h4>URL of project</h4>
+                <input class="w3-input w3-border w3-margin-bottom" type="text" name="domain"/>
+
+                <input class="w3-check" type="checkbox" name="parseEnabled"/>
+                <label>Parse project enabled</label>
+            </div><!--input dialog-->
+            <div class="w3-container w3-margin-top"/>
+            <div class="w3-container">
+                <input type="submit" class="w3-button w3-right w3-blue w3-margin" value="Create project">
+            </div><!--accept button-->
+        </form>
+        </div> <!--card-->
+    </div><!--main div-->
+</body>
+</html>
