@@ -5,6 +5,7 @@ import com.webdev.siteparser.domain.Page;
 import com.webdev.siteparser.domain.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,11 @@ import java.util.Set;
 
 @Repository
 public interface PageRepository extends JpaRepository<Page, Long> {
+
+    @Query(nativeQuery = true, value = "SELECT * FROM page WHERE project_id = :projectId LIMIT :countPages OFFSET :offset")
+    List<Page> getPagesByOffset(@Param("projectId") long projectId,
+                                @Param("offset") int offset,
+                                @Param("countPages")int countPages);
 
     @Query("from Page p where p.url = :url")
     List<Page> findPageByUrl(@Param("url") String url);

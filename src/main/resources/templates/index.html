@@ -23,12 +23,22 @@
                         <a
                                 th:href="@{/project/changeParsingState/(projectId=${project.getId()}, parsingEnabled=${!project.getParseEnabled()})}"
                                 th:text="${project.getParseEnabled()} ? 'Stop parsing' : 'Start parsing'"
-                                th:attr="class='w3-button w3-right ' + ${project.getParseEnabled() ? 'w3-yellow' : 'w3-green'}">Start
+                                th:attr="class='w3-button w3-right ' + ${project.getParseEnabled() ? 'w3-yellow' : 'w3-green'}">
+                            Start/stop parsing
                         </a>
+
                         <a
-                                th:href="@{project/delete/(projectId=${project.getId()})}"
-                                class="w3-button w3-left w3-red">Delete project
+                                th:href="@{/project/delete/(projectId=${project.getId()})}"
+                                class="w3-button w3-left w3-red">
+                            Delete project
                         </a>
+
+                        <a
+                                th:href="@{/project/pages/(projectId=${project.getId()})}"
+                                class="w3-button w3-left w3-blue w3-margin-left">
+                            List pages
+                        </a>
+
                     </div><!-- start/stop button -->
                 </ul>
 

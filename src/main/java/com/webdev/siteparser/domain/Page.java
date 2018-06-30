@@ -46,6 +46,8 @@ public class Page {
         return project;
     }
 
+    public long getId() { return id; }
+
     public void setProject(Project project) {
         this.project = project;
     }

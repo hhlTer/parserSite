@@ -14,6 +14,8 @@ public class PageService {
     @Autowired
     private PageRepository pageRepository;
 
+    @Autowired
+    private ProjectService projectService;
     //basic
     public void delete(Page p){
         pageRepository.delete(p);
@@ -41,20 +43,44 @@ public class PageService {
         return page;
     }
 
+    public List<Page> getPageOffset(long projectId, int pageNumber, int count){
+        int offset = pageNumber * count;
+        if (projectService.exist(projectId)) {
+            return pageRepository.getPagesByOffset(projectId, offset, count);
+        }
+        return null;
+    }
+
     public Page getById(long id){
         return pageRepository.findById(id).get();
     }
+
     public List<Page> getAll(){
         return pageRepository.findAll();
     }
+
+    public List<Page> getAll(long projectId){
+        return  pageRepository.getPagesByProjectId(projectId);
+    }
+
     public void clear(){pageRepository.deleteAll();}
     //additional
     public Page getPageByUrlByProjectId(String url, long prId){
         return pageRepository.getPagesByProjectId(prId, url);
     }
+
+    /**
+     * @param url
+     * @return all pages by mask-url
+     */
     public List<Page> getPageByUrl(String url){
         return pageRepository.findPageByUrl(url);
     }
+
+    /**
+     * @param project
+     * @return check parsing enabled, return true, if true =)
+     */
 
     public boolean hasProjectUnparsedPages(Project project){
         if (null == project){

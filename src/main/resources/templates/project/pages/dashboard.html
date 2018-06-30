@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Pages of project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body>
+    <div class="w3-container w3-margin-top">
+        <div class="w3-container w3-blue">
+            <div class="w3-container w3-gray">
+                <h1 th:text="'Pages of project domain: ' + ${project.domain}"></h1>
+            </div>
+            <div class="w3-container w3-light-blue">
+                <table class="w3-table">
+                    <tr>
+                        <th>N</th>
+                        <th>ID</th>
+                        <th>URL</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Content</th>
+                    </tr>
+                    <tr th:each="page: ${pages}">
+                        <td th:text="${indices.get(page.getId())}"></td>
+                        <td th:text="${page.getId()}"></td>
+                        <td><a th:href="@{${page.getUrl()}}" th:text="${page.getUrl()}"></a></td>
+                        <td th:text="${page.getTitle()}"></td>
+                        <td th:text="${page.getDescription()}"></td>
+                        <td th:text="${contentSubstring.get(page.getId())}"></td>
+                        <!--<td th:text="${page.getContent().substring(0, 200)} + '....'"></td>-->
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
