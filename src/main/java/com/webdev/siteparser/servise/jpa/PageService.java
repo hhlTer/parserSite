@@ -16,33 +16,35 @@ public class PageService {
 
     @Autowired
     private ProjectService projectService;
-    //basic
-    public void delete(Page p){
-        pageRepository.delete(p);
+    //basic crud
+    public Page getById(long id){
+        return pageRepository.findById(id).get();
     }
+    public List<Page> getAll(){
+        return pageRepository.findAll();
+    }
+    public List<Page> getAll(long projectId){
+        return  pageRepository.getPagesByProjectId(projectId);
+    }
+    public void clear(){pageRepository.deleteAll();}
+    public void delete(Page p){ pageRepository.delete(p);}
     public Page save(Page page){
         long projectId = page.getProject().getId();
         String url = page.getUrl();
 
         Page page1 = pageRepository.getPagesByProjectId(projectId, url);
-
+        //research for X double save
         if (isSaves(page, page1)){
             pageRepository.save(page);
         }
-//        else {
-//            System.out.println("page already exist");
-//        }
-
-
-//        if ((page1 == null) || (page1.getContent() == null)){
-//            if (page.getContent() == null && page.getTitle() == null && page.getDescription() == null);
-//            pageRepository.save(page);
-//        } else {
-//            System.out.println("page already exist");
-//        }
         return page;
     }
 
+    /**
+     * @param pageNumber number of page: count_of_all_pages/count
+     * @param count - size of pages, as shows in site page
+     * @return pages in offset
+     */
     public List<Page> getPageOffset(long projectId, int pageNumber, int count){
         int offset = pageNumber * count;
         if (projectService.exist(projectId)) {
@@ -51,20 +53,8 @@ public class PageService {
         return null;
     }
 
-    public Page getById(long id){
-        return pageRepository.findById(id).get();
-    }
-
-    public List<Page> getAll(){
-        return pageRepository.findAll();
-    }
-
-    public List<Page> getAll(long projectId){
-        return  pageRepository.getPagesByProjectId(projectId);
-    }
-
-    public void clear(){pageRepository.deleteAll();}
     //additional
+    public int getCountOfPagesByProjectId(long projectId){ return pageRepository.countPagesByProjectId(projectId);}
     public Page getPageByUrlByProjectId(String url, long prId){
         return pageRepository.getPagesByProjectId(prId, url);
     }
@@ -94,6 +84,11 @@ public class PageService {
 
         return true;
     }
+
+    /**
+     * @param project
+     * @return pages for parsing, where projectId == project.id, and content == null
+     */
     public List<Page> getProjectUnparsedPages(Project project){
         return pageRepository.getUnparsedPagesByProjectId(project.getId());
     }
@@ -102,7 +97,7 @@ public class PageService {
      * find url, content, title, description keywords
      * @param project - used for detect project id
      * @param keywords - find word(s)
-     * @return Set of pages, where did find :keywords
+     * @return Set of pages, where url like :keywords
      */
     public Set<Page> findUrlByKeywords(Project project, String[] keywords) {
         Set<Page> result = new HashSet<>();
@@ -152,8 +147,7 @@ public class PageService {
         return result;
     }
 
-
-
+    //exclude double page
     private boolean isSaves(Page newPage, Page oldPage){
         if (oldPage == null) {
             return true;

@@ -18,6 +18,8 @@ import java.util.Map;
 @Controller
 public class PageController {
 
+    private final static int COUNT_OF_VISIBLE_NOTE = 50;
+
     @Autowired
     private ProjectService projectService;
 
@@ -39,7 +41,7 @@ public class PageController {
 
             int pageNumberInt = Integer.parseInt(pageNumber);
 
-            List<Page> pages = pageService.getPageOffset(projectId, pageNumberInt, 50);
+            List<Page> pages = pageService.getPageOffset(projectId, pageNumberInt, COUNT_OF_VISIBLE_NOTE);
             modelAndView.addObject("pages", pages);
 
             Map<Long, String> contentSubstring = new HashMap<>();
@@ -54,7 +56,17 @@ public class PageController {
             }
               modelAndView.addObject("contentSubstring", contentSubstring);
               modelAndView.addObject("indices", indices);
+              modelAndView.addObject("pageCount", pageNumberInt);
+
+              int countOfPagesSite = getCountOfPagesSite(pageService.getCountOfPagesByProjectId(projectId), COUNT_OF_VISIBLE_NOTE);
+              modelAndView.addObject("countOfPagesSite", countOfPagesSite);
         }
         return modelAndView;
+    }
+
+    private int getCountOfPagesSite(int countOfAllPagesByProjectId, int countVisibleNote){
+        int a = countOfAllPagesByProjectId%countVisibleNote;
+        int b = countOfAllPagesByProjectId/countVisibleNote;
+        return a > 0 ? ++b : b;
     }
 }

@@ -8,13 +8,16 @@
 
 </head>
 <body>
+    <div class="w3-conainer w3-margin-top">
+        <a th:href="'/'" class="w3-button w3-yellow">Back to main page</a>
+    </div>
     <div class="w3-container w3-margin-top">
         <div class="w3-container w3-blue">
             <div class="w3-container w3-gray">
                 <h1 th:text="'Pages of project domain: ' + ${project.domain}"></h1>
             </div>
             <div class="w3-container w3-light-blue">
-                <table class="w3-table">
+                <table class="w3-table w3-striped w3-bordered w3-border">
                     <tr>
                         <th>N</th>
                         <th>ID</th>
@@ -33,6 +36,11 @@
                         <!--<td th:text="${page.getContent().substring(0, 200)} + '....'"></td>-->
                     </tr>
                 </table>
+            </div> <!--table-->
+            <div class="w3-container">
+                <a th:if="${pageCount > 0}" th:href="@{/project/pages/(projectId=${project.getId()}, pageNumber = ${pageCount - 1})}" class="w3-button w3-green">Previous</a>
+                <span th:text="'Page #' + ${pageCount + 1}" style="width: 80%; text-align: center; display: inline-block; font-weight: bold;">Page #</span>
+                <a th:if="${pageCount < countOfPagesSite - 1}" th:href="@{/project/pages/(projectId=${project.getId()}, pageNumber = ${pageCount + 1})}" class="w3-button w3-green w3-right">Next</a>
             </div>
         </div>
     </div>

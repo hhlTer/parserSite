@@ -15,6 +15,9 @@ import java.util.Set;
 @Repository
 public interface PageRepository extends JpaRepository<Page, Long> {
 
+//    @Query(nativeQuery = true, value = "")
+    int countPagesByProjectId(long projectId);
+
     @Query(nativeQuery = true, value = "SELECT * FROM page WHERE project_id = :projectId LIMIT :countPages OFFSET :offset")
     List<Page> getPagesByOffset(@Param("projectId") long projectId,
                                 @Param("offset") int offset,
