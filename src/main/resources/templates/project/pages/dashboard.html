@@ -8,9 +8,12 @@
 
 </head>
 <body>
-    <div class="w3-conainer w3-margin-top">
-        <a th:href="'/'" class="w3-button w3-yellow">Back to main page</a>
-    </div>
+
+    <div th:replace="fragment/menu.html :: top_menu"/>
+    <!--<div class="w3-block w3-grey">-->
+        <!--<a href="/" class="w3-button w3-yellow">Back to main page</a>-->
+    <!--</div>-->
+
     <div class="w3-container w3-margin-top">
         <div class="w3-container w3-blue">
             <div class="w3-container w3-gray">
