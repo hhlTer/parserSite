@@ -1,3 +1,6 @@
 <div th:fragment="top_menu" class="w3-block w3-grey" xmlns:th="http://www.w3.org/1999/xhtml">
     <a href="/" class="w3-button w3-yellow">Back to main menu</a>
+    <a href="/project" class="w3-button w3-pink">Projects</a>
+
+    <span th:text="'Joined: ' + ${user.getUsername()}" class="w3-text w3-right w3-margin"></span>
 </div>

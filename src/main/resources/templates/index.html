@@ -2,57 +2,24 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>First page</title>
+    <title>Parser</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
 <div th:replace="fragment/menu.html :: top_menu"/>
 
-<div class="w3-cars w3-light-gray w3-margin">
-    <div class="w3-container w3-blue">
-        <h2 th:text="'Projects: ' + ${projects.size()}">FIRST PAGE</h2>
+    <div class="w3-container wr-grey">
+        <div class="w3-card">
+            <h3>Site parser</h3>
+        <p>
+            Description bla bla bla bla
+        </p>
+        </div>
+
+        <div class="w3-container w3-margin-top">
+            <a href="/project" class="w3-button w3-blue w3-right">Edit</a>
+        </div>
     </div>
-    <!--<p th:text="${value}">ddf</p>-->
-    <div th:each="project : ${projects}" class="w3-container">
-        <!--<div class="w3-container w3-margin">-->
-            <div class="w3-container w3-section w3-gray w3-margin">
-                <ul class="w3-ul">
-                    <li th:text="'Project domain: ' + ${project.domain}"></li>
-                    <li th:text="'Count of pages: ' + ${project.pages.size()}"></li>
-                    <li th:with="pState = ${project.getParseEnabled()} ? 'enabled' : 'disabled'" th:text="'Parsing status: ' + ${pState}"></li>
-                    <div class="w3-container w3-margin">
-                        <a
-                                th:href="@{/project/changeParsingState/(projectId=${project.getId()}, parsingEnabled=${!project.getParseEnabled()})}"
-                                th:text="${project.getParseEnabled()} ? 'Stop parsing' : 'Start parsing'"
-                                th:attr="class='w3-button w3-right ' + ${project.getParseEnabled() ? 'w3-yellow' : 'w3-green'}">
-                            Start/stop parsing
-                        </a>
-
-                        <a
-                                th:href="@{/project/delete/(projectId=${project.getId()})}"
-                                class="w3-button w3-left w3-red">
-                            Delete project
-                        </a>
-
-                        <a
-                                th:href="@{/project/pages/(projectId=${project.getId()})}"
-                                class="w3-button w3-left w3-blue w3-margin-left">
-                            List pages
-                        </a>
-
-                    </div><!-- start/stop button -->
-                </ul>
-
-            </div><!-- project -->
-        </div><!--project count + inside-->
-    </div> <!--foreach project:projects-->
-</div> <!--main container-->
-            <div class="w3-container w3-margin">
-                        <a
-                                th:href="@{project/add}"
-                                class="w3-button w3-left w3-margin-bottom w3-blue">Create project
-                        </a>
-            </div>
 </body>
 </html>
